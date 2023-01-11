@@ -1,0 +1,7 @@
+kind: Group
+apiVersion: user.openshift.io/v1
+metadata:
+  name: {{ PROJECT_NAME }}-admins
+  namespace: {{ PROJECT_NAME }}
+users:
+  - {{ PROJECT_REQUESTING_SUI }}

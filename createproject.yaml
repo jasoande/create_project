@@ -1,0 +1,4 @@
+- name: createproject
+  hosts: localhost
+  roles:
+    - project

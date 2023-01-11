@@ -1,0 +1,19 @@
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: allow-from-openshift-ingress
+  namespace: {{ PROJECT_NAME }}
+  annotations:
+    epic-osc.mitre.org/description: >-
+      Allow network traffic into this project from the cluster ingress
+      controllers.
+spec:
+  podSelector: {}
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              network.openshift.io/policy-group: ingress
+  policyTypes:
+    - Ingress
+

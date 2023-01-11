@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: {{ PROJECT_NAME }}-resource-quota
+  namespace: {{ PROJECT_NAME }}
+spec:
+  hard:
+    requests.cpu: 100m
+    requests.memory: 100Mi
+    limits.cpu: {{ cpu }}
+    limits.memory: {{ memory }}Gi
+    requests.storage: {{ storage }}Gi

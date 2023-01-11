@@ -1,0 +1,61 @@
+---
+# tasks file for creating projects and groups with projects
+- name: Create a k8s namespace
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/namespace.yaml.j2
+    apply: yes
+
+- name: Create OpenShift resoure quota for {{ PROJECT_NAME }}
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/resourcequota.yaml.j2
+    apply: yes
+
+- name: Create OpenShift limitrange for {{ PROJECT_NAME }}
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/limitrange.yaml.j2
+    apply: yes
+
+- name: Create group {{ PROJECT_NAME }}-admins for the namespace {{ PROJECT_NAME }}
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/grp-admin.yaml.j2
+    apply: yes
+
+- name: Create group {{ PROJECT_NAME }}-team for the namespace {{ PROJECT_NAME }}
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/grp-team.yaml.j2
+    apply: yes
+
+- name: Create cluster role binding for group {{ PROJECT_NAME }}-admins in the namespace {{ PROJECT_NAME }} with admin permissions
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/crb-admin.yaml.j2
+    apply: yes
+
+- name: Create cluster role binding for group {{ PROJECT_NAME }}-team in the namespace {{ PROJECT_NAME }} with edit permissions
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/crb-group.yaml.j2
+    apply: yes
+
+- name: Create netowrk policy to allow traffic in the same namesapce
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/np-allow-same-namespace.yaml.j2
+    apply: yes
+
+- name: Create netowrk policy to allow traffic from openshift-monitoring
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/np-allow-from-openshift-monitoring.yaml.j2
+    apply: yes
+
+- name: Create netowrk policy to allow traffic from openshift-ingress
+  community.kubernetes.k8s:
+    state: present
+    template: project/templates/np-allow-from-openshift-ingress.yaml.j2
+    apply: yes

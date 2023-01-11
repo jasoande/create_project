@@ -1,0 +1,11 @@
+kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: {{ PROJECT_NAME }}
+  annotations:
+    openshift.io/description: {{ PROJECT_NAME }}
+    openshift.io/display-name: {{ PROJECT_NAME }}
+    openshift.io/requester: {{ PROJECT_REQUESTING_USER }}
+  labels:
+    epic-osc.mitre.org/project-type: user
+    
